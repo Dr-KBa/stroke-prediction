@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stroke Prediction</title>
+</head>
+<body>
+    <form id="predict-form">
+        <label for="gender">Gender:</label>
+        <select name="gender" id="gender">
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+        </select>
+        <br>
+
+        <label for="hypertension">Hypertension:</label>
+        <select name="hypertension" id="hypertension">
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+        </select>
+        <br>
+
+        <label for="heart_disease">Heart Disease:</label>
+        <select name="heart_disease" id="heart_disease">
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+        </select>
+        <br>
+        
+        <label for="ever_married">Ever Married:</label>
+        <select name="ever_married" id="ever_married">
+            <option value="No">No</option>
+            <option value="Yes">Yes</option>
+        </select>
+        <br>
+
+        <label for="work_type">Work Type:</label>
+        <select name="work_type" id="work_type">
+            <option value="Private">Private</option>
+            <option value="Self-employed">Self-employed</option>
+            <option value="Govt_job">Govt_job</option>
+            <option value="children">children</option>
+            <option value="Never_worked">Never_worked</option>
+        </select>
+        <br>
+
+        <label for="Residence_type">Residence Type:</label>
+        <select name="Residence_type" id="Residence_type">
+            <option value="Urban">Urban</option>
+            <option value="Rural">Rural</option>
+        </select>
+        <br>
+
+        <label for="smoking_status">Smoking Status:</label>
+        <select name="smoking_status" id="smoking_status">
+            <option value="formerly smoked">Formerly Smoked</option>
+            <option value="never smoked">Never Smoked</option>
+            <option value="smokes">Smokes</option>
+            <option value="Unknown">Unknown</option>
+        </select>
+        <br>
+        
+        <button type="button" onclick="getPrediction()">Predict</button>
+    </form>
+    
+    <div id="prediction-result">Prediction will be displayed here</div>
+
+    <script>
+        async function getPrediction() {
+            const form = document.getElementById('predict-form');
+            const data = new FormData(form);
+            const response = await fetch('/predict', {
+                method: 'POST',
+                body: data
+            });
+            const prediction = await response.json();
+            document.getElementById('prediction-result').textContent = 'Prediction: ' + prediction;
+        }
+    </script>
+</body>
+</html>
